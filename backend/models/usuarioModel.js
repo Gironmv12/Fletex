@@ -1,5 +1,5 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const { sequelize } = require('../config/db'); // Asegúrate de desestructurar sequelize
+import { Model, DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js'; // Asegúrate de desestructurar sequelize
 
 class Usuario extends Model {}
 
@@ -53,4 +53,4 @@ Usuario.associate = (models) => {
     });
 };
 
-module.exports = Usuario;
+export default Usuario;

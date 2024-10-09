@@ -1,7 +1,8 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const { sequelize } = require('../config/db');
+import { Model, DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 class Cliente extends Model {}
+
 Cliente.init({
     id_cliente: {
         type: DataTypes.BIGINT,
@@ -34,17 +35,17 @@ Cliente.init({
     },
     created_by: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: true
     },
     updated_by: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: true
     }
 }, {
     sequelize,
     modelName: 'Cliente',
     tableName: 'clientes',
-    timestamps: false, // Configura esto si decides manejar created_at y updated_at manualmente
+    timestamps: false // Configura esto si decides manejar created_at y updated_at manualmente
 });
 
 // Definir las relaciones
@@ -63,4 +64,4 @@ Cliente.associate = (models) => {
     });
 };
 
-module.exports = Cliente;
+export default Cliente;
