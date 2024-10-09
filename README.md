@@ -1,7 +1,3 @@
-El archivo `README.md` actual en el repositorio `Fletex` contiene solo la descripción básica del proyecto. 
-
-Aquí está la propuesta de actualización:
-
 ```markdown
 # Fletex
 
