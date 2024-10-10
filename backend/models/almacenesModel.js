@@ -1,5 +1,5 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const { sequelize } = require('../config/db'); 
+import { Model, DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 class Almacen extends Model {}
 
@@ -34,10 +34,10 @@ Almacen.init({
         allowNull: false
     }
 }, {
-    sequelize, // Asegúrate de pasar la instancia de sequelize
+    sequelize, 
     modelName: 'Almacen',
     tableName: 'almacenes',
-    timestamps: false, // Configura esto si decides manejar created_at y updated_at manualmente
+    timestamps: false, 
 });
 
-module.exports = Almacen;
+export default Almacen; // Exportar el modelo Almacen para poder ser requerido en otros archivos

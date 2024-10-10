@@ -1,5 +1,6 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const { sequelize } = require('../config/db'); // Asegúrate de desestructurar sequelize
+import { Model, DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js';
+
 class Inventario extends Model {}
 
 Inventario.init({
@@ -63,4 +64,4 @@ Inventario.associate = (models) => {
     });
 };
 
-module.exports = Inventario;
+export default Inventario; // Exportar el modelo Inventario para poder ser requerido en otros archivos
