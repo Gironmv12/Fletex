@@ -1,11 +1,12 @@
-import './App.css'
+import Login from './Pages/login'
+import Footer from '../src/components/footer'
 
 function App() {
 
   return (
     <>
-      <h1>Hola mundo</h1>
-      <h2> Hola Mi primer Cambio </h2>
+      <Login/>
+      <Footer/>
     </>
   )
 }
