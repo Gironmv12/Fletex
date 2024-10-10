@@ -101,4 +101,4 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-export default router; // Exportar el router
+export default router; // Exportar el routergir
