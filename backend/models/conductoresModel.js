@@ -1,5 +1,5 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const { sequelize } = require('../config/db'); // Corrección en la importación
+import { Model, DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 class Conductor extends Model {}
 
@@ -60,4 +60,4 @@ Conductor.associate = (models) => {
     });
 };
 
-module.exports = Conductor;
+export default Conductor;

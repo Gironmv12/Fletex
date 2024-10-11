@@ -1,5 +1,5 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const { sequelize } = require('../config/db'); // Asegúrate de importar correctamente
+import { Model, DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 class AsignacionPaquete extends Model {}
 
@@ -72,4 +72,4 @@ AsignacionPaquete.associate = (models) => {
     });
 };
 
-module.exports = AsignacionPaquete;
+export default AsignacionPaquete;

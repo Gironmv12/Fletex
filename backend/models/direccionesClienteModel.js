@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require('sequelize');
-const { sequelize } = require('../config/db');
+import { Model, DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 class DireccionCliente extends Model {}
 DireccionCliente.init({
@@ -35,4 +35,4 @@ DireccionCliente.associate = (models) => {
     });
 };
 
-module.exports = DireccionCliente;
+export default DireccionCliente;

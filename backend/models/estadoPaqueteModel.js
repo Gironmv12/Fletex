@@ -1,5 +1,5 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const { sequelize } = require('../config/db'); 
+import { Model, DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 class EstadoPaquete extends Model {}
 
@@ -56,4 +56,4 @@ EstadoPaquete.associate = (models) => {
     });
 };
 
-module.exports = EstadoPaquete;
+export default EstadoPaquete;

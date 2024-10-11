@@ -1,5 +1,5 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const { sequelize } = require('../config/db');
+import { Model, DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 class Ruta extends Model {}
 
@@ -80,4 +80,4 @@ Ruta.associate = (models) => {
     });
 };
 
-module.exports = Ruta;
+export default Ruta; // Exportar el modelo Ruta para poder ser requerido en otros archivos

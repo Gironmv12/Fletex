@@ -2,6 +2,7 @@ import express from 'express';
 import { connectDB } from './config/db.js';
 import userRoutes from './routes/routes.js'; 
 import clienteRoutes from './routes/clienteRoutes.js';
+import paqueteRoutes from './routes/paqueteRoutes.js';
 
 import dotenv from 'dotenv';
 
@@ -18,6 +19,8 @@ app.use(express.json());
 app.use('/api', userRoutes);
 //usar las rutas de cliente
 app.use('/api', clienteRoutes);
+//usar las rutas de paquete
+app.use('/api', paqueteRoutes);
 
 // Conectar a la base de datos y sincronizar
 connectDB()

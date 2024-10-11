@@ -1,5 +1,5 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const { sequelize } = require('../config/db'); 
+import { Model, DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 class HistorialEstadoPaquete extends Model {}
 HistorialEstadoPaquete.init({
@@ -39,4 +39,4 @@ HistorialEstadoPaquete.associate = (models) => {
     });
 };
 
-module.exports = HistorialEstadoPaquete;
+export default HistorialEstadoPaquete;

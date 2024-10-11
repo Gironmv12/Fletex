@@ -1,15 +1,15 @@
-const Almacen = require('./almacenesModel');
-const Usuario = require('./usuarioModel');
-const AsignacionPaquete = require('./asignacionesPaquetesModel');
-const Paquete = require('./paquetesModel');
-const Ruta = require('./rutasModel');
-const Vehiculo = require('./vehiculosModel');
-const Conductor = require('./conductoresModel');
-const Cliente = require('./clientesModel');
-const EstadoPaquete = require('./estadoPaqueteModel');
-const Inventario = require('./inventariosModel');
-const HistorialEstadoPaquete = require('./historialEstadoPaqueteModel');
-const DireccionCliente = require('./direccionesClienteModel');
+import Almacen from './almacenesModel.js';
+import Usuario from './usuarioModel.js';
+import AsignacionPaquete from './asignacionesPaquetesModel.js';
+import Paquete from './paquetesModel.js';
+import Ruta from './rutasModel.js';
+import Vehiculo from './vehiculosModel.js';
+import Conductor from './conductoresModel.js';
+import Cliente from './clientesModel.js';
+import EstadoPaquete from './estadoPaqueteModel.js';
+import Inventario from './inventariosModel.js';
+import HistorialEstadoPaquete from './historialEstadoPaqueteModel.js';
+import DireccionCliente from './direccionesClienteModel.js';
 
 const models = {
     Almacen,
@@ -27,4 +27,4 @@ const models = {
 };
 
 // exportar
-module.exports = models;
+export default models;

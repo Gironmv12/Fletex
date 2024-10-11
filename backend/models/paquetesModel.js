@@ -1,5 +1,5 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const { sequelize } = require('../config/db');
+import { Model, DataTypes, Sequelize } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 class Paquete extends Model {}
 Paquete.init({
@@ -18,7 +18,7 @@ Paquete.init({
     },
     id_inventario: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: true //despues cambiar a false
     },
     descripcion: {
         type: DataTypes.TEXT,
@@ -74,7 +74,7 @@ Paquete.init({
     },
     metodo_pago: {
         type: DataTypes.ENUM('tarjeta_credito', 'transferencia', 'efectivo'),
-        allowNull: false
+        allowNull: true
     },
     etiqueta_envio: {
         type: DataTypes.TEXT,
@@ -120,4 +120,4 @@ Paquete.associate = (models) => {
     });
 };
 
-module.exports = Paquete;
+export default Paquete;
