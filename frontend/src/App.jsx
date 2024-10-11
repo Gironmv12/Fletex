@@ -1,14 +1,18 @@
-import Login from './Pages/login'
-import Footer from '../src/components/footer'
+import { BrowserRouter as Router } from 'react-router-dom';
+import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
+import AppRoutes from './Routes/AppRoutes';
 
 function App() {
-
   return (
-    <>
-      <Login/>
-      <Footer/>
-    </>
-  )
+    <Router>
+      <Sidebar />
+      <Navbar />
+      <div className="main-content">
+        <AppRoutes />
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
