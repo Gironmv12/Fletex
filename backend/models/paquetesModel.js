@@ -92,32 +92,4 @@ Paquete.init({
     timestamps: false
 });
 
-// Definir las relaciones
-Paquete.associate = (models) => {
-    Paquete.belongsTo(models.Cliente, {
-        foreignKey: 'id_cliente',
-        as: 'cliente'
-    });
-    Paquete.belongsTo(models.EstadoPaquete, {
-        foreignKey: 'id_estado',
-        as: 'estado'
-    });
-    Paquete.belongsTo(models.Inventario, {
-        foreignKey: 'id_inventario',
-        as: 'inventario'
-    });
-    Paquete.belongsTo(models.Usuario, {
-        foreignKey: 'created_by',
-        as: 'creador'
-    });
-    Paquete.belongsTo(models.Usuario, {
-        foreignKey: 'updated_by',
-        as: 'actualizador'
-    });
-    Paquete.hasMany(models.AsignacionPaquete, {
-        foreignKey: 'id_paquete',
-        as: 'asignaciones'
-    });
-};
-
 export default Paquete;

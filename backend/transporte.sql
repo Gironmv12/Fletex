@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 9.0.1, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
 -- Host: localhost    Database: transporte
 -- ------------------------------------------------------
@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -35,8 +35,18 @@ CREATE TABLE `almacenes` (
   KEY `updated_by` (`updated_by`),
   CONSTRAINT `almacenes_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `usuarios` (`id_usuario`),
   CONSTRAINT `almacenes_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `almacenes`
+--
+
+LOCK TABLES `almacenes` WRITE;
+/*!40000 ALTER TABLE `almacenes` DISABLE KEYS */;
+INSERT INTO `almacenes` VALUES (5,'Almacén Central','Calle Principal 123','2024-10-10 22:11:28','2024-10-10 22:11:28',1,1),(6,'Almacén Norte','Avenida Secundaria 456','2024-10-10 22:11:28','2024-10-10 22:11:28',1,1);
+/*!40000 ALTER TABLE `almacenes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `asignaciones_paquetes`
@@ -69,6 +79,15 @@ CREATE TABLE `asignaciones_paquetes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `asignaciones_paquetes`
+--
+
+LOCK TABLES `asignaciones_paquetes` WRITE;
+/*!40000 ALTER TABLE `asignaciones_paquetes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `asignaciones_paquetes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `clientes`
 --
 
@@ -90,8 +109,18 @@ CREATE TABLE `clientes` (
   KEY `updated_by` (`updated_by`),
   CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `usuarios` (`id_usuario`),
   CONSTRAINT `clientes_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `clientes`
+--
+
+LOCK TABLES `clientes` WRITE;
+/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (1,'Juan Perez','123456789','juan.perez@example.com','Calle Falsa 123','2024-10-09 00:34:46','2024-10-09 00:34:46',1,1),(2,'Efrain morales','9611239878','Efrain@example.com','Calle de la amrgura 123','2024-10-09 00:35:58','2024-10-09 00:35:58',1,1),(3,'Josefa Ortiz','987654321','Josefa@example.com','Calle de la paz 345','2024-10-09 14:55:52','2024-10-09 14:55:52',1,1);
+/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `conductores`
@@ -114,8 +143,18 @@ CREATE TABLE `conductores` (
   KEY `updated_by` (`updated_by`),
   CONSTRAINT `conductores_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `usuarios` (`id_usuario`),
   CONSTRAINT `conductores_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `conductores`
+--
+
+LOCK TABLES `conductores` WRITE;
+/*!40000 ALTER TABLE `conductores` DISABLE KEYS */;
+INSERT INTO `conductores` VALUES (1,'Pedro Martínez','LIC123456','555-9876','2024-10-10 22:20:11','2024-10-10 22:20:11',1,1),(2,'Laura Sánchez','LIC654321','555-4321','2024-10-10 22:20:11','2024-10-10 22:20:11',1,1);
+/*!40000 ALTER TABLE `conductores` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `direcciones_cliente`
@@ -132,8 +171,18 @@ CREATE TABLE `direcciones_cliente` (
   PRIMARY KEY (`id_direccion`),
   KEY `id_cliente` (`id_cliente`),
   CONSTRAINT `direcciones_cliente_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `direcciones_cliente`
+--
+
+LOCK TABLES `direcciones_cliente` WRITE;
+/*!40000 ALTER TABLE `direcciones_cliente` DISABLE KEYS */;
+INSERT INTO `direcciones_cliente` VALUES (1,1,'Calle Falsa 123','remitente'),(2,2,'Avenida Siempre Viva 742','destinatario');
+/*!40000 ALTER TABLE `direcciones_cliente` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `estado_paquete`
@@ -155,8 +204,18 @@ CREATE TABLE `estado_paquete` (
   KEY `updated_by` (`updated_by`),
   CONSTRAINT `estado_paquete_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `usuarios` (`id_usuario`),
   CONSTRAINT `estado_paquete_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `estado_paquete`
+--
+
+LOCK TABLES `estado_paquete` WRITE;
+/*!40000 ALTER TABLE `estado_paquete` DISABLE KEYS */;
+INSERT INTO `estado_paquete` VALUES (1,'preparado','El paquete está listo para ser enviado','2024-10-10 22:18:09','2024-10-10 22:18:09',1,1),(2,'en tránsito','El paquete está en camino','2024-10-10 22:18:09','2024-10-10 22:18:09',1,1),(3,'preparado','El paquete está listo para ser enviado','2024-10-10 22:13:46','2024-10-10 22:13:46',1,1),(4,'en tránsito','El paquete está en camino','2024-10-10 22:13:46','2024-10-10 22:13:46',1,1);
+/*!40000 ALTER TABLE `estado_paquete` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `historial_estado_paquete`
@@ -174,8 +233,17 @@ CREATE TABLE `historial_estado_paquete` (
   PRIMARY KEY (`id_historial`),
   KEY `id_paquete` (`id_paquete`),
   CONSTRAINT `historial_estado_paquete_ibfk_1` FOREIGN KEY (`id_paquete`) REFERENCES `paquetes` (`id_paquete`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `historial_estado_paquete`
+--
+
+LOCK TABLES `historial_estado_paquete` WRITE;
+/*!40000 ALTER TABLE `historial_estado_paquete` DISABLE KEYS */;
+/*!40000 ALTER TABLE `historial_estado_paquete` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `inventarios`
@@ -200,8 +268,18 @@ CREATE TABLE `inventarios` (
   CONSTRAINT `inventarios_ibfk_1` FOREIGN KEY (`id_almacen`) REFERENCES `almacenes` (`id_almacen`),
   CONSTRAINT `inventarios_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `usuarios` (`id_usuario`),
   CONSTRAINT `inventarios_ibfk_3` FOREIGN KEY (`updated_by`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inventarios`
+--
+
+LOCK TABLES `inventarios` WRITE;
+/*!40000 ALTER TABLE `inventarios` DISABLE KEYS */;
+INSERT INTO `inventarios` VALUES (3,5,'Producto A',100,'2024-10-10 22:14:46','2024-10-10 22:14:46',1,1),(4,6,'Producto B',200,'2024-10-10 22:14:46','2024-10-10 22:14:46',1,1),(7,5,'Paquete PAQ-1728601156549',1,'2024-10-10 22:59:16','2024-10-10 22:59:16',1,1),(8,5,'Paquete PAQ-1728601589578',1,'2024-10-10 23:06:29','2024-10-10 23:06:29',1,1),(9,5,'Paquete PAQ-1728601690293',5,'2024-10-10 23:08:10','2024-10-10 23:08:10',1,1);
+/*!40000 ALTER TABLE `inventarios` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `paquetes`
@@ -214,7 +292,7 @@ CREATE TABLE `paquetes` (
   `id_paquete` bigint NOT NULL AUTO_INCREMENT,
   `id_cliente` bigint NOT NULL,
   `id_estado` bigint NOT NULL,
-  `id_inventario` bigint NOT NULL,
+  `id_inventario` bigint DEFAULT NULL,
   `descripcion` text,
   `peso` decimal(10,2) DEFAULT NULL,
   `dimensiones` text,
@@ -243,8 +321,18 @@ CREATE TABLE `paquetes` (
   CONSTRAINT `paquetes_ibfk_3` FOREIGN KEY (`id_inventario`) REFERENCES `inventarios` (`id_inventario`),
   CONSTRAINT `paquetes_ibfk_4` FOREIGN KEY (`created_by`) REFERENCES `usuarios` (`id_usuario`),
   CONSTRAINT `paquetes_ibfk_5` FOREIGN KEY (`updated_by`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `paquetes`
+--
+
+LOCK TABLES `paquetes` WRITE;
+/*!40000 ALTER TABLE `paquetes` DISABLE KEYS */;
+INSERT INTO `paquetes` VALUES (12,1,1,NULL,'Paquete con artículos frágiles',2.50,'30x20x10','2023-10-01','2023-10-05','2024-10-10 22:21:31','2024-10-10 22:21:31',1,1,'456 Calle Verdadera, Ciudad, País','123 Calle Falsa, Ciudad, País','normal',50.00,'tarjeta_credito','\n            Código de Rastreo: PAQ-1728598891195\n            Cliente: 1\n            Dirección de Destino: 123 Calle Falsa, Ciudad, País\n            Peso: 2.5 KG\n            Dimensiones: 30x20x10\n            Estado: 1\n            Dirección del Remitente: 456 Calle Verdadera, Ciudad, País\n            Método de Envío: normal\n        ','PAQ-1728598891195'),(13,1,1,NULL,'Paquete con artículos frágiles',2.50,'30x20x10','2023-10-01','2023-10-05','2024-10-10 22:23:27','2024-10-10 22:23:27',1,1,'456 Calle Verdadera, Ciudad, País','123 Calle Falsa, Ciudad, País','normal',50.00,'tarjeta_credito','\n            Código de Rastreo: PAQ-1728599007516\n            Cliente: 1\n            Dirección de Destino: 123 Calle Falsa, Ciudad, País\n            Peso: 2.5 KG\n            Dimensiones: 30x20x10\n            Estado: 1\n            Dirección del Remitente: 456 Calle Verdadera, Ciudad, País\n            Método de Envío: normal\n        ','PAQ-1728599007516'),(14,1,1,7,'Paquete con artículos frágiles',2.50,'30x20x10','2023-10-01','2023-10-05','2024-10-10 22:59:16','2024-10-10 22:59:16',1,1,'456 Calle Verdadera, Ciudad, País','123 Calle Falsa, Ciudad, País','normal',50.00,'tarjeta_credito','\n            Código de Rastreo: PAQ-1728601156549\n            Cliente: 1\n            Dirección de Destino: 123 Calle Falsa, Ciudad, País\n            Peso: 2.5 KG\n            Dimensiones: 30x20x10\n            Estado: 1\n            Dirección del Remitente: 456 Calle Verdadera, Ciudad, País\n            Método de Envío: normal\n        ','PAQ-1728601156549'),(15,2,1,8,'Paquete con ropa y accesorios',3.00,'40x30x20','2023-10-02','2023-10-07','2024-10-10 23:06:29','2024-10-10 23:06:29',1,1,'101 Calle Real, Ciudad, País','789 Avenida Siempre Viva, Ciudad, País','express',75.00,'efectivo','\n            Código de Rastreo: PAQ-1728601589578\n            Cliente: 2\n            Dirección de Destino: 789 Avenida Siempre Viva, Ciudad, País\n            Peso: 3 KG\n            Dimensiones: 40x30x20\n            Estado: 1\n            Dirección del Remitente: 101 Calle Real, Ciudad, País\n            Método de Envío: express\n        ','PAQ-1728601589578'),(16,1,1,3,'Paquete con artículos frágiles y este fue esditado',2.50,'30x20x10','2023-10-01','2023-10-05','2024-10-10 23:08:10','2024-10-10 23:08:10',1,4,'456 Calle Verdadera, Ciudad, País editado','123 Calle Falsa, Ciudad, País','normal',50.00,'tarjeta_credito','Código de Rastreo: PAQ-123456789\nCliente: 1\nDirección de Destino: 123 Calle Falsa, Ciudad, País\nPeso: 2.5 KG\nDimensiones: 30x20x10\nEstado: 1\nDirección del Remitente: 456 Calle Verdadera, Ciudad, País\nMétodo de Envío: normal','PAQ-123456789');
+/*!40000 ALTER TABLE `paquetes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `rutas`
@@ -274,8 +362,18 @@ CREATE TABLE `rutas` (
   CONSTRAINT `rutas_ibfk_2` FOREIGN KEY (`id_conductor`) REFERENCES `conductores` (`id_conductor`),
   CONSTRAINT `rutas_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `usuarios` (`id_usuario`),
   CONSTRAINT `rutas_ibfk_4` FOREIGN KEY (`updated_by`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rutas`
+--
+
+LOCK TABLES `rutas` WRITE;
+/*!40000 ALTER TABLE `rutas` DISABLE KEYS */;
+INSERT INTO `rutas` VALUES (1,'Ciudad A','Ciudad B',100.50,'2 horas',1,1,'2024-10-10 22:20:17','2024-10-10 22:20:17',1,1),(2,'Ciudad C','Ciudad D',200.00,'4 horas',1,1,'2024-10-10 22:20:17','2024-10-10 22:20:17',1,1);
+/*!40000 ALTER TABLE `rutas` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `usuarios`
@@ -294,8 +392,18 @@ CREATE TABLE `usuarios` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'Efrain penagos','efrain.perez@example.com','$2b$10$PuMA6cXmbmEX67EcorJ6qutCRoEPAOaXTPd9cyoNJqfKAagcWXALy','operador','2024-10-08 19:29:33','2024-10-08 19:29:33'),(4,'Francisco Giron','Francisco@example.com','$2b$10$fGePE4etSVGwbBtlEJr/1uWXy4NrwUZ0CRvCWB0dpl/JB0XfAgz8.','administrador','2024-10-09 22:57:51','2024-10-09 22:57:51'),(5,'Juan Pérez','juan.perez@example.com','password123','administrador','2024-10-10 22:06:11','2024-10-10 22:06:11'),(6,'Ana Gómez','ana.gomez@example.com','password456','operador','2024-10-10 22:06:11','2024-10-10 22:06:11');
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `vehiculos`
@@ -320,8 +428,18 @@ CREATE TABLE `vehiculos` (
   KEY `updated_by` (`updated_by`),
   CONSTRAINT `vehiculos_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `usuarios` (`id_usuario`),
   CONSTRAINT `vehiculos_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vehiculos`
+--
+
+LOCK TABLES `vehiculos` WRITE;
+/*!40000 ALTER TABLE `vehiculos` DISABLE KEYS */;
+INSERT INTO `vehiculos` VALUES (1,'ABC123','Toyota','Corolla','disponible','2024-10-10 22:20:02','2024-10-10 22:20:02',1,1),(2,'XYZ789','Ford','Fiesta','en uso','2024-10-10 22:20:02','2024-10-10 22:20:02',1,1);
+/*!40000 ALTER TABLE `vehiculos` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -332,4 +450,4 @@ CREATE TABLE `vehiculos` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-05 23:15:25
+-- Dump completed on 2024-10-12 19:56:55

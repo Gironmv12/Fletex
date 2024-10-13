@@ -3,6 +3,8 @@ import { connectDB } from './config/db.js';
 import userRoutes from './routes/routes.js'; 
 import clienteRoutes from './routes/clienteRoutes.js';
 import paqueteRoutes from './routes/paqueteRoutes.js';
+import almacenRoutes from './routes/almacenRouter.js';
+import inventariosRoutes from './routes/inventariosRoutes.js';
 
 import dotenv from 'dotenv';
 
@@ -21,11 +23,17 @@ app.use('/api', userRoutes);
 app.use('/api', clienteRoutes);
 //usar las rutas de paquete
 app.use('/api', paqueteRoutes);
+//usar las rutas para almacen
+app.use('/api', almacenRoutes);
+//usar las rutas para inventarios
+app.use('/api', inventariosRoutes);
 
 // Conectar a la base de datos y sincronizar
 connectDB()
     .then(() => {
         console.log('Base de datos conectada y sincronizada.');
+        // Rutas deben estar definidas después de la conexión a la base de datos
+        app.use('/api/inventarios', inventariosRoutes);
 
         // Iniciar el servidor solo después de que la base de datos se ha conectado y sincronizado
         app.listen(PORT, () => {

@@ -21,8 +21,9 @@ const connectDB = async () => {
     console.log('Conexión a la base de datos exitosa');
     
     // Sincronizar modelos con la base de datos
-    await sequelize.sync({ force: false });  // Cambia a true si necesitas recrear las tablas durante el desarrollo
+    await sequelize.sync({ alter: true });  // Cambia a true si necesitas recrear las tablas durante el desarrollo
     console.log('Base de datos sincronizada.');
+    console.log('Relaciones definidad correctamente.');
     
   } catch (error) {
     console.error('No se pudo conectar a la base de datos:', error);

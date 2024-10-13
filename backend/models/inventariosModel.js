@@ -1,5 +1,6 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import { sequelize } from '../config/db.js';
+import Almacen from './almacenesModel.js';
 
 class Inventario extends Model {}
 
@@ -44,24 +45,7 @@ Inventario.init({
     timestamps: false, // Configura esto si decides manejar created_at y updated_at manualmente
 });
 
-// Definir las relaciones
-Inventario.associate = (models) => {
-    Inventario.belongsTo(models.Almacen, {
-        foreignKey: 'id_almacen',
-        as: 'almacen'
-    });
-    Inventario.belongsTo(models.Usuario, {
-        foreignKey: 'created_by',
-        as: 'creador'
-    });
-    Inventario.belongsTo(models.Usuario, {
-        foreignKey: 'updated_by',
-        as: 'actualizador'
-    });
-    Inventario.hasMany(models.Paquete, {
-        foreignKey: 'id_inventario',
-        as: 'paquetes'
-    });
-};
+// Definir las asociaciones después de la inicialización
+Inventario.belongsTo(Almacen, { foreignKey: 'id_almacen', as: 'almacen' });
 
 export default Inventario; // Exportar el modelo Inventario para poder ser requerido en otros archivos
