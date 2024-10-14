@@ -1,0 +1,18 @@
+{
+    "build": {
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "commands": [
+        "cd backend",
+        "npm install"
+      ]
+    },
+    "start": {
+      "commands": [
+        "cd backend",
+        "npm start"
+      ]
+    }
+  }
+  
