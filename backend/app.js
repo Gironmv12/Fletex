@@ -51,3 +51,4 @@ connectDB()
     .catch(err => {
         console.error('Error al conectar y sincronizar la base de datos:', err);
     });
+    
