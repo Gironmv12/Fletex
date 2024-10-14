@@ -35,7 +35,7 @@ CREATE TABLE `almacenes` (
   KEY `updated_by` (`updated_by`),
   CONSTRAINT `almacenes_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `usuarios` (`id_usuario`),
   CONSTRAINT `almacenes_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `almacenes` (
 
 LOCK TABLES `almacenes` WRITE;
 /*!40000 ALTER TABLE `almacenes` DISABLE KEYS */;
-INSERT INTO `almacenes` VALUES (5,'Almacén Central','Calle Principal 123','2024-10-10 22:11:28','2024-10-10 22:11:28',1,1),(6,'Almacén Norte','Avenida Secundaria 456','2024-10-10 22:11:28','2024-10-10 22:11:28',1,1);
+INSERT INTO `almacenes` VALUES (5,'Almacén Central','Calle Principal 123','2024-10-10 22:11:28','2024-10-10 22:11:28',1,1),(6,'Almacén Norte','Avenida Secundaria 456','2024-10-10 22:11:28','2024-10-10 22:11:28',1,1),(7,'Almacén Central','Calle Falsa 123, Ciudad Ejemplo','2024-10-13 09:12:51','2024-10-13 09:12:51',1,1),(8,'Almacén Norte','Avenida Principal 456, Ciudad Norte','2024-10-13 09:13:23','2024-10-13 09:13:23',1,1),(9,'Almacén Sur','Boulevard del Sur 789, Ciudad Sur','2024-10-13 09:13:45','2024-10-13 09:13:45',1,1),(10,'Almacén Este','Calle Este 101, Ciudad Este','2024-10-13 09:13:54','2024-10-13 09:13:54',1,1),(11,'Almacén Oeste','Avenida de los Jardines 202, Ciudad Oeste','2024-10-13 09:14:02','2024-10-13 09:14:02',1,1);
 /*!40000 ALTER TABLE `almacenes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -450,4 +450,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-12 19:56:55
+-- Dump completed on 2024-10-13  3:15:49

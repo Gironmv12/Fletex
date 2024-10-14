@@ -5,17 +5,23 @@ import clienteRoutes from './routes/clienteRoutes.js';
 import paqueteRoutes from './routes/paqueteRoutes.js';
 import almacenRoutes from './routes/almacenRouter.js';
 import inventariosRoutes from './routes/inventariosRoutes.js';
+import vehiculosRoutes from './routes/vehiculosRoutes.js';
 
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 
 const app = express();
+
 const PORT = process.env.PORT || 5000;
 
 // Configurar variables de entorno
 dotenv.config();
 // Habilitar express.json para manejar JSON en las solicitudes
 app.use(express.json());
+
+
+app.use(cors());
 
 // Usar las rutas importadas
 app.use('/api', userRoutes);
@@ -27,6 +33,8 @@ app.use('/api', paqueteRoutes);
 app.use('/api', almacenRoutes);
 //usar las rutas para inventarios
 app.use('/api', inventariosRoutes);
+//usar las rutas para vehiculos
+app.use('/api', vehiculosRoutes);
 
 // Conectar a la base de datos y sincronizar
 connectDB()

@@ -41,6 +41,18 @@ Vehiculo.init({
     updated_by: {
         type: DataTypes.BIGINT,
         allowNull: false
+    },
+    tipo_vehiculo: {
+        type: DataTypes.ENUM('camión', 'furgoneta', 'automóvil', 'motocicleta'),
+        allowNull: true
+    },
+    capacidad_carga: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
+    observaciones: {
+        type: DataTypes.TEXT,
+        allowNull: true
     }
 }, {
     sequelize,

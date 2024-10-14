@@ -83,7 +83,6 @@ Paquete.init({
     codigo_rastreo: {
         type: DataTypes.STRING(255),
         allowNull: true,
-        unique: true
     }
 }, {
     sequelize,
