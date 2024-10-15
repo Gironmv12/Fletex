@@ -40,9 +40,6 @@ app.use('/api', vehiculosRoutes);
 connectDB()
     .then(() => {
         console.log('Base de datos conectada y sincronizada.');
-        // Rutas deben estar definidas después de la conexión a la base de datos
-        app.use('/api/inventarios', inventariosRoutes);
-
         // Iniciar el servidor solo después de que la base de datos se ha conectado y sincronizado
         app.listen(PORT, () => {
             console.log(`Servidor corriendo en el puerto ${PORT}`);
