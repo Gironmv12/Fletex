@@ -10,8 +10,12 @@ import vehiculosRoutes from './routes/vehiculosRoutes.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
-
 const app = express();
+const corsConfig = {
+    origin: '*',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+};
 
 const PORT = process.env.PORT || 5000;
 
@@ -20,8 +24,7 @@ dotenv.config();
 // Habilitar express.json para manejar JSON en las solicitudes
 app.use(express.json());
 
-
-app.use(cors());
+app.use(cors(corsConfig));
 
 app.get('/', (req, res) => {
     res.send('¡Hola, mundo!');

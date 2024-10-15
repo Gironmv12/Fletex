@@ -12,7 +12,6 @@ Vehiculo.init({
     placa: {
         type: DataTypes.STRING(20),
         allowNull: false,
-        unique: true
     },
     marca: {
         type: DataTypes.TEXT,
