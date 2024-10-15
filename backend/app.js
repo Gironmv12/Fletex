@@ -23,6 +23,10 @@ app.use(express.json());
 
 app.use(cors());
 
+app.get('/', (req, res) => {
+    res.send('¡Hola, mundo!');
+  });
+
 // Usar las rutas importadas
 app.use('/api', userRoutes);
 //usar las rutas de cliente
