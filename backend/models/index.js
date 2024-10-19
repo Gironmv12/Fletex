@@ -41,9 +41,44 @@ Paquete.belongsTo(EstadoPaquete, { foreignKey: 'id_estado', as: 'estado' });
 Paquete.belongsTo(Usuario, { foreignKey: 'created_by', as: 'creador' });
 Paquete.belongsTo(Usuario, { foreignKey: 'updated_by', as: 'actualizador' });
 Paquete.hasMany(AsignacionPaquete, { foreignKey: 'id_paquete', as: 'asignaciones' });
+Paquete.hasMany(HistorialEstadoPaquete, { foreignKey: 'id_paquete', as: 'historiales' });
 
-// Agregar otras asociaciones según sea necesario
-// ...
+Vehiculo.belongsTo(Usuario, { foreignKey: 'created_by', as: 'creador' });
+Vehiculo.belongsTo(Usuario, { foreignKey: 'updated_by', as: 'actualizador' });
+Vehiculo.hasMany(Ruta, { foreignKey: 'id_vehiculo', as: 'rutas' });
+
+Conductor.belongsTo(Usuario, { foreignKey: 'created_by', as: 'creador' });
+Conductor.belongsTo(Usuario, { foreignKey: 'updated_by', as: 'actualizador' });
+Conductor.hasMany(Ruta, { foreignKey: 'id_conductor', as: 'rutas' });
+
+Ruta.belongsTo(Vehiculo, { foreignKey: 'id_vehiculo', as: 'vehiculo' });
+Ruta.belongsTo(Conductor, { foreignKey: 'id_conductor', as: 'conductor' });
+Ruta.belongsTo(Usuario, { foreignKey: 'created_by', as: 'creador' });
+Ruta.belongsTo(Usuario, { foreignKey: 'updated_by', as: 'actualizador' });
+Ruta.hasMany(AsignacionPaquete, { foreignKey: 'id_ruta', as: 'asignaciones' });
+
+AsignacionPaquete.belongsTo(Paquete, { foreignKey: 'id_paquete', as: 'paquete' });
+AsignacionPaquete.belongsTo(Ruta, { foreignKey: 'id_ruta', as: 'ruta' });
+AsignacionPaquete.belongsTo(Usuario, { foreignKey: 'created_by', as: 'creador' });
+AsignacionPaquete.belongsTo(Usuario, { foreignKey: 'updated_by', as: 'actualizador' });
+
+// Registrar las asociaciones
+Paquete.associate({ AsignacionPaquete, HistorialEstadoPaquete });
+AsignacionPaquete.associate({ Paquete, Ruta, Usuario });
+Ruta.associate({ Vehiculo, Conductor, AsignacionPaquete });
+Vehiculo.associate({ Ruta });
+Conductor.associate({ Ruta });
+HistorialEstadoPaquete.associate({ Paquete });
+EstadoPaquete.hasMany(Paquete, { foreignKey: 'id_estado', as: 'paquetes' });
+
+// Sincronizar base de datos
+sequelize.sync({ alter: true })
+    .then(() => {
+        console.log('Base de datos sincronizada');
+    })
+    .catch((error) => {
+        console.error('Error al sincronizar la base de datos:', error);
+    });
 
 const models = {
     Almacen,

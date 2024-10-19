@@ -1,5 +1,6 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import { sequelize } from '../config/db.js';
+import AsignacionPaquete from './asignacionesPaquetesModel.js';
 
 class Paquete extends Model {}
 Paquete.init({
@@ -90,5 +91,37 @@ Paquete.init({
     tableName: 'paquetes',
     timestamps: false
 });
+
+Paquete.associate = (models) => {
+    Paquete.belongsTo(models.Inventario, {
+        foreignKey: 'id_inventario',
+        as: 'inventario'
+    });
+    Paquete.belongsTo(models.Cliente, {
+        foreignKey: 'id_cliente',
+        as: 'cliente'
+    });
+    Paquete.belongsTo(models.EstadoPaquete, {
+        foreignKey: 'id_estado',
+        as: 'estado'
+    });
+    Paquete.belongsTo(models.Usuario, {
+        foreignKey: 'created_by',
+        as: 'creador'
+    });
+    Paquete.belongsTo(models.Usuario, {
+        foreignKey: 'updated_by',
+        as: 'actualizador'
+    });
+    Paquete.hasMany(models.AsignacionPaquete, {
+        foreignKey: 'id_paquete',
+        as: 'asignaciones'
+    });
+    Paquete.hasMany(models.HistorialEstadoPaquete, {
+        foreignKey: 'id_paquete',
+        as: 'historiales'
+    });
+};
+
 
 export default Paquete;

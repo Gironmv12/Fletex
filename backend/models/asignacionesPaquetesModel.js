@@ -1,6 +1,7 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import { sequelize } from '../config/db.js';
 
+
 class AsignacionPaquete extends Model {}
 
 AsignacionPaquete.init({
@@ -51,7 +52,6 @@ AsignacionPaquete.init({
     tableName: 'asignaciones_paquetes',
     timestamps: false, // Configura esto si decides manejar created_at y updated_at manualmente
 });
-
 // Definir las relaciones
 AsignacionPaquete.associate = (models) => {
     AsignacionPaquete.belongsTo(models.Paquete, {
@@ -71,5 +71,6 @@ AsignacionPaquete.associate = (models) => {
         as: 'actualizador'
     });
 };
+
 
 export default AsignacionPaquete;

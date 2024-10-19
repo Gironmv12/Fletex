@@ -1,5 +1,9 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import { sequelize } from '../config/db.js';
+import Vehiculo from './vehiculosModel.js';
+import Conductor from './conductoresModel.js';
+import Usuario from './usuarioModel.js';
+import AsignacionPaquete from './asignacionesPaquetesModel.js';
 
 class Ruta extends Model {}
 
@@ -27,11 +31,19 @@ Ruta.init({
     },
     id_vehiculo: {
         type: DataTypes.BIGINT,
-        allowNull: true
+        allowNull: true,
+        references: {
+            model: 'vehiculos',  // Nombre de la tabla asociada
+            key: 'id_vehiculo'
+        }
     },
     id_conductor: {
         type: DataTypes.BIGINT,
-        allowNull: true
+        allowNull: true,
+        references: {
+            model: 'conductores',
+            key: 'id_conductor'
+        }
     },
     created_at: {
         type: DataTypes.DATE,
@@ -48,6 +60,11 @@ Ruta.init({
     updated_by: {
         type: DataTypes.BIGINT,
         allowNull: false
+    },
+    estado: {
+        type: DataTypes.ENUM('disponible', 'en uso', 'completada', 'cancelada'),
+        allowNull: false,
+        defaultValue: 'disponible'
     }
 }, {
     sequelize,
@@ -56,7 +73,6 @@ Ruta.init({
     timestamps: false // Configura esto si decides manejar created_at y updated_at manualmente
 });
 
-// DEFINIR LAS RELACIONES
 Ruta.associate = (models) => {
     Ruta.belongsTo(models.Vehiculo, {
         foreignKey: 'id_vehiculo',
@@ -74,7 +90,7 @@ Ruta.associate = (models) => {
         foreignKey: 'updated_by',
         as: 'actualizador'
     });
-    Ruta.hasMany(models.AsignacionPaquete, {
+    Ruta.hasMany(AsignacionPaquete, {
         foreignKey: 'id_ruta',
         as: 'asignaciones'
     });

@@ -6,6 +6,10 @@ import paqueteRoutes from './routes/paqueteRoutes.js';
 import almacenRoutes from './routes/almacenRouter.js';
 import inventariosRoutes from './routes/inventariosRoutes.js';
 import vehiculosRoutes from './routes/vehiculosRoutes.js';
+import conductoresRoutes from './routes/conductoresRoutes.js';
+import rutasAsignacionesRoutes from './routes/rutasAsignacionesRoutes.js';
+import historialPaqueteRoutes from './routes/historialPaqueteRoutes.js';
+import dashboardRoutes from './routes/dashboardRoutes.js';
 
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -42,6 +46,14 @@ app.use('/api', almacenRoutes);
 app.use('/api', inventariosRoutes);
 //usar las rutas para vehiculos
 app.use('/api', vehiculosRoutes);
+//usar las rutas para conductores
+app.use('/api', conductoresRoutes);
+//usar las rutas para rutas y asignaciones
+app.use('/api', rutasAsignacionesRoutes);
+//user las rutas para historial de paquetes
+app.use('/api', historialPaqueteRoutes);
+//usar las rutas para dashboard
+app.use('/api', dashboardRoutes);
 
 // Conectar a la base de datos y sincronizar
 connectDB()

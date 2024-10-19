@@ -13,6 +13,14 @@ Conductor.init({
         type: DataTypes.TEXT,
         allowNull: false
     },
+    apellido_paterno: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+    },
+    apellido_materno: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+    },
     licencia: {
         type: DataTypes.STRING(100),
         allowNull: false
@@ -21,13 +29,26 @@ Conductor.init({
         type: DataTypes.STRING(50),
         allowNull: true
     },
+    direccion: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    fecha_nacimiento: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    estado: {
+        type: DataTypes.ENUM('disponible', 'en ruta', 'dado de baja'),
+        allowNull: false,
+        defaultValue: 'disponible'
+    },
     created_at: {
         type: DataTypes.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') // Corrección aquí
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     },
     updated_at: {
         type: DataTypes.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') // Corrección aquí
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     },
     created_by: {
         type: DataTypes.BIGINT,
