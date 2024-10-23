@@ -2,29 +2,26 @@ import express from 'express';
 import { body, validationResult } from 'express-validator';
 import Almacen from '../models/almacenesModel.js';
 import Inventario from '../models/inventariosModel.js';
+import { sequelize } from '../config/db.js';
 
 const router = express.Router();
 
 // Crear un almacén
 router.post('/createAlmacen', [
     body('nombre').notEmpty().withMessage('El nombre es requerido'),
-    body('ubicacion').notEmpty().withMessage('La ubicación es requerida'),
-    body('created_by').isInt().withMessage('El ID del creador es requerido'),
-    body('updated_by').isInt().withMessage('El ID del actualizador es requerido')
+    body('ubicacion').notEmpty().withMessage('La ubicación es requerida')
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { nombre, ubicacion, created_by, updated_by } = req.body;
+    const { nombre, ubicacion } = req.body;
 
     try {
         const nuevoAlmacen = await Almacen.create({
             nombre,
-            ubicacion,
-            created_by,
-            updated_by
+            ubicacion
         });
 
         res.status(201).json(nuevoAlmacen);
@@ -34,7 +31,7 @@ router.post('/createAlmacen', [
     }
 });
 
-//obtener todos lo alamacenes
+// Obtener todos los almacenes
 router.get('/getAlmacenes', async (req, res) => {
     try {
         const almacenes = await Almacen.findAll();
@@ -45,10 +42,10 @@ router.get('/getAlmacenes', async (req, res) => {
     }
 });
 
-//editar un almacen
+// Editar un almacén
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { nombre, ubicacion, updated_by } = req.body;
+    const { nombre, ubicacion } = req.body;
 
     try {
         const almacen = await Almacen.findByPk(id);
@@ -58,7 +55,6 @@ router.put('/:id', async (req, res) => {
 
         almacen.nombre = nombre;
         almacen.ubicacion = ubicacion;
-        almacen.updated_by = updated_by;
 
         await almacen.save();
 
@@ -69,7 +65,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-//eliminar un alamacen
+// Eliminar un almacén
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
 
@@ -93,4 +89,17 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ error: 'Error al eliminar el almacén', details: error.message });
     }
 });
+
+// Obtener datos combinados de Almacen e Inventario
+router.get('/almacenInventario', async (req, res) => {
+    try {
+        const results = await sequelize.query('CALL GetAlmacenInventario()');
+        res.json(results);  // Envía todos los resultados completos
+    } catch (error) {
+        console.error('Error al obtener los datos combinados:', error);
+        res.status(500).json({ error: 'Error al obtener los datos combinados', details: error.message });
+    }
+});
+
+
 export default router;

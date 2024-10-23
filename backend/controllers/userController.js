@@ -52,7 +52,7 @@ router.post('/login', [
         }
 
         const token = jwt.sign({ id: usuario.id_usuario, rol: usuario.rol }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).json({ token });
+        res.status(200).json({ token, user: { nombre: usuario.nombre, email: usuario.email, rol: usuario.rol } });
     } catch (error) {
         console.error('Error al iniciar sesión:', error); // Agregar más detalles al mensaje de error
         res.status(500).json({ error: 'Error al iniciar sesión', details: error.message });
