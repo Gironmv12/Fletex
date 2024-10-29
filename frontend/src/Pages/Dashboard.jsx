@@ -123,8 +123,8 @@ const Dashboard = () => {
                     <td className="py-3 px-6 border-b border-gray-200 text-gray-800 text-xs ">{paquete.nombre_cliente}</td>
                     <td className="py-3 px-6 border-b border-gray-200 text-gray-800 text-xs">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${paquete.estado_paquete === 'entregado'
-                          ? 'bg-green-100 text-green-600'
-                          : 'bg-yellow-100 text-yellow-600'
+                        ? 'bg-green-100 text-green-600'
+                        : 'bg-yellow-100 text-yellow-600'
                         }`}>
                         {paquete.estado_paquete}
                       </span>
