@@ -11,7 +11,7 @@ import HistorialEstadoPaquete from '../models/historialEstadoPaqueteModel.js';
 
 const router = express.Router();
 
-//crear paquete
+// Crear paquete
 router.post('/createPaquete', [
     body('id_cliente').isInt().withMessage('El cliente es requerido'),
     body('direccion_destino').notEmpty().withMessage('La dirección de destino es requerida'),
@@ -30,7 +30,7 @@ router.post('/createPaquete', [
     const {
         id_cliente, direccion_destino, peso, dimensiones, id_estado, descripcion,
         fecha_envio, fecha_entrega, direccion_remitente, metodo_envio, costo,
-        metodo_pago, created_by, updated_by, id_almacen, cantidad
+        metodo_pago, id_almacen, cantidad
     } = req.body;
 
     const transaction = await sequelize.transaction(); // Iniciar una transacción
@@ -75,16 +75,14 @@ router.post('/createPaquete', [
         const inventario = await Inventario.create({
             id_almacen: id_almacen,
             descripcion: `Paquete ${codigo_rastreo}`,
-            cantidad: cantidad, // Asigna la cantidad proporcionada
-            created_by: created_by,
-            updated_by: updated_by
+            cantidad: cantidad // Asigna la cantidad proporcionada
         }, { transaction });
 
         // Crear el paquete con id_inventario
         const paquete = await Paquete.create({
             id_cliente, direccion_destino, peso, dimensiones, id_estado, descripcion,
             fecha_envio, fecha_entrega, direccion_remitente, metodo_envio, costo,
-            metodo_pago, etiqueta_envio, codigo_rastreo, created_by, updated_by,
+            metodo_pago, etiqueta_envio, codigo_rastreo,
             id_inventario: inventario.id_inventario // Asignar el id_inventario creado
         }, { transaction });
 
@@ -94,11 +92,15 @@ router.post('/createPaquete', [
     } catch (error) {
         await transaction.rollback(); // Revertir la transacción en caso de error
         console.error('Error al crear el paquete:', error);
-        res.status(500).json({ error: 'Error al crear el paquete', details: error.message });
+        res.status(500).json({ 
+            error: 'Error al crear el paquete', 
+            details: error.message, 
+            stack: error.stack // Esto puede ser útil para depuración
+        });
     }
 });
 
-//obtener todos los paquetes
+// Obtener todos los paquetes
 router.get('/getPaquetes', async (req, res) => {
     try {
         const paquetes = await Paquete.findAll();
@@ -110,11 +112,26 @@ router.get('/getPaquetes', async (req, res) => {
 });
 
 // Editar un paquete
-router.put('/:id', async (req, res) => {
+router.put('/:id', [
+    body('id_cliente').isInt().withMessage('El cliente es requerido'),
+    body('direccion_destino').notEmpty().withMessage('La dirección de destino es requerida'),
+    body('peso').isFloat().withMessage('El peso es requerido'),
+    body('dimensiones').notEmpty().withMessage('Las dimensiones son requeridas'),
+    body('id_estado').isInt().withMessage('El estado es requerido'),
+    body('direccion_remitente').notEmpty().withMessage('La dirección del remitente es requerida'),
+    body('metodo_envio').isIn(['normal', 'express']).withMessage('El método de envío es requerido'),
+    body('id_almacen').isInt().withMessage('El almacén es requerido'),
+    body('cantidad').isInt({ min: 1 }).withMessage('La cantidad es requerida y debe ser al menos 1')
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { id } = req.params;
     const { id_cliente, direccion_destino, peso, dimensiones, id_estado, descripcion,
         fecha_envio, fecha_entrega, direccion_remitente, metodo_envio, costo,
-        metodo_pago, etiqueta_envio, codigo_rastreo, updated_by, id_inventario } = req.body;
+        metodo_pago, id_inventario } = req.body;
 
     const transaction = await sequelize.transaction(); // Iniciar una transacción
 
@@ -139,13 +156,6 @@ router.put('/:id', async (req, res) => {
             return res.status(400).json({ error: 'Estado del paquete no encontrado' });
         }
 
-        // Verificar que el usuario que actualiza existe
-        const usuario = await Usuario.findByPk(updated_by, { transaction });
-        if (!usuario) {
-            await transaction.rollback();
-            return res.status(400).json({ error: 'Usuario no encontrado' });
-        }
-
         // Verificar que el inventario existe
         const inventario = await Inventario.findByPk(id_inventario, { transaction });
         if (!inventario) {
@@ -166,9 +176,6 @@ router.put('/:id', async (req, res) => {
         paquete.metodo_envio = metodo_envio;
         paquete.costo = costo;
         paquete.metodo_pago = metodo_pago;
-        paquete.etiqueta_envio = etiqueta_envio;
-        paquete.codigo_rastreo = codigo_rastreo;
-        paquete.updated_by = updated_by;
         paquete.id_inventario = id_inventario;
 
         await paquete.save({ transaction });
@@ -214,5 +221,15 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+// Obtener estados de paquete
+router.get('/getEstadosPaquete', async (req, res) => {
+    try {
+        const estadosPaquete = await EstadoPaquete.findAll();
+        res.json(estadosPaquete);
+    } catch (error) {
+        console.error('Error al obtener los estados de paquete:', error);
+        res.status(500).json({ error: 'Error al obtener los estados de paquete', details: error.message });
+    }
+});
 
 export default router;

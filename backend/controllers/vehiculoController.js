@@ -6,13 +6,12 @@ import Ruta from '../models/rutasModel.js';
 const router = express.Router();
 
 // Crear un vehículo
+// VehiculoController.js
 router.post('/createVehiculo', [
     body('placa').notEmpty().withMessage('La placa es requerida'),
     body('marca').notEmpty().withMessage('La marca es requerida'),
     body('modelo').notEmpty().withMessage('El modelo es requerido'),
     body('estado').isIn(['disponible', 'en uso', 'en mantenimiento']).withMessage('El estado es requerido'),
-    body('created_by').notEmpty().withMessage('El campo created_by es requerido'),
-    body('updated_by').notEmpty().withMessage('El campo updated_by es requerido'),
     body('tipo_vehiculo').isIn(['camión', 'furgoneta', 'automóvil', 'motocicleta']).withMessage('El tipo de vehículo es requerido'),
     body('capacidad_carga').isFloat().withMessage('La capacidad de carga es requerida'),
     body('observaciones').notEmpty().withMessage('Las observaciones son requeridas')
@@ -22,7 +21,7 @@ router.post('/createVehiculo', [
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { placa, marca, modelo, estado, created_by, updated_by, tipo_vehiculo, capacidad_carga, observaciones } = req.body;
+    const { placa, marca, modelo, estado, tipo_vehiculo, capacidad_carga, observaciones } = req.body;
 
     try {
         const nuevoVehiculo = await Vehiculo.create({
@@ -30,8 +29,6 @@ router.post('/createVehiculo', [
             marca,
             modelo,
             estado,
-            created_by,
-            updated_by,
             tipo_vehiculo,
             capacidad_carga,
             observaciones
@@ -80,7 +77,7 @@ router.put('/editVehiculo/:id',async (req, res) => {
     }
 
     const { id } = req.params;
-    const { placa, marca, modelo, estado, updated_by, tipo_vehiculo, capacidad_carga, observaciones } = req.body;
+    const { placa, marca, modelo, estado, tipo_vehiculo, capacidad_carga, observaciones } = req.body;
 
     try {
         const vehiculo = await Vehiculo.findByPk(id);
@@ -92,7 +89,6 @@ router.put('/editVehiculo/:id',async (req, res) => {
         vehiculo.marca = marca;
         vehiculo.modelo = modelo;
         vehiculo.estado = estado;
-        vehiculo.updated_by = updated_by;
         vehiculo.tipo_vehiculo = tipo_vehiculo;
         vehiculo.capacidad_carga = capacidad_carga;
         vehiculo.observaciones = observaciones;

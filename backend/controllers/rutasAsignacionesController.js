@@ -17,16 +17,14 @@ router.post('/createRuta', [
     body('distancia_km').optional().isDecimal().withMessage('La distancia debe ser un número decimal'),
     body('tiempo_estimado').optional().isString().withMessage('El tiempo estimado debe ser una cadena de texto'),
     body('id_vehiculo').notEmpty().withMessage('El vehículo es requerido'),
-    body('id_conductor').notEmpty().withMessage('El conductor es requerido'),
-    body('created_by').notEmpty().withMessage('El campo created_by es requerido'),
-    body('updated_by').notEmpty().withMessage('El campo updated_by es requerido')
+    body('id_conductor').notEmpty().withMessage('El conductor es requerido')
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { origen, destino, distancia_km, tiempo_estimado, id_vehiculo, id_conductor, created_by, updated_by } = req.body;
+    const { origen, destino, distancia_km, tiempo_estimado, id_vehiculo, id_conductor } = req.body;
 
     try {
         const nuevaRuta = await Ruta.create({
@@ -35,9 +33,7 @@ router.post('/createRuta', [
             distancia_km,
             tiempo_estimado,
             id_vehiculo,
-            id_conductor,
-            created_by,
-            updated_by
+            id_conductor
         });
 
         res.status(201).json(nuevaRuta);
@@ -46,22 +42,19 @@ router.post('/createRuta', [
         res.status(500).json({ error: 'Error al crear la ruta' });
     }
 });
-
-//asignar paquete a una ruta
+// Asignar paquete a una ruta
 router.post('/asignarPaquete', [
     body('id_paquete').isInt().withMessage('El paquete es requerido'),
     body('id_ruta').isInt().withMessage('La ruta es requerida'),
     body('fecha_asignacion').isISO8601().withMessage('La fecha de asignación debe ser una fecha válida'),
     body('estado').isIn(['pendiente', 'en curso', 'completado', 'cancelado']).withMessage('El estado es requerido'),
-    body('created_by').isInt().withMessage('El campo created_by es requerido'),
-    body('updated_by').isInt().withMessage('El campo updated_by es requerido')
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { id_paquete, id_ruta, fecha_asignacion, estado, created_by, updated_by } = req.body;
+    const { id_paquete, id_ruta, fecha_asignacion, estado } = req.body;
 
     try {
         const asignacion = await AsignacionPaquete.create({
@@ -69,8 +62,6 @@ router.post('/asignarPaquete', [
             id_ruta,
             fecha_asignacion,
             estado,
-            created_by,
-            updated_by
         });
 
         res.status(201).json(asignacion);
@@ -80,7 +71,7 @@ router.post('/asignarPaquete', [
     }
 });
 
-//aztualizar  fecha completada de un paquete
+// Actualizar fecha completada de un paquete
 router.put('/completarAsignacion/:id', [
     body('fecha_completada').isISO8601().withMessage('La fecha completada debe ser una fecha válida')
 ], async (req, res) => {
@@ -139,7 +130,6 @@ router.get('/getRutasDisponibles', async (_, res) => {
     }
 });
 
-
 router.get('/testRutasVehiculos', async (_, res) => {
     try {
         const rutas = await Ruta.findAll({
@@ -156,8 +146,5 @@ router.get('/testRutasVehiculos', async (_, res) => {
         res.status(500).json({ error: 'Error al obtener las rutas con vehículos' });
     }
 });
-
-
-
 
 export default router;

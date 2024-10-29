@@ -55,11 +55,11 @@ Ruta.init({
     },
     created_by: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: true
     },
     updated_by: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: true
     },
     estado: {
         type: DataTypes.ENUM('disponible', 'en uso', 'completada', 'cancelada'),

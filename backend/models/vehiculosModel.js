@@ -35,11 +35,11 @@ Vehiculo.init({
     },
     created_by: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: true
     },
     updated_by: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: true
     },
     tipo_vehiculo: {
         type: DataTypes.ENUM('camión', 'furgoneta', 'automóvil', 'motocicleta'),

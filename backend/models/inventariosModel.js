@@ -32,11 +32,11 @@ Inventario.init({
     },
     created_by: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: true
     },
     updated_by: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: true
     }
 }, {
     sequelize,

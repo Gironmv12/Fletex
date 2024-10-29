@@ -14,15 +14,13 @@ router.post('/createConductor', [
     body('direccion').optional().isString().withMessage('La dirección debe ser una cadena de texto'),
     body('fecha_nacimiento').optional().isDate().withMessage('La fecha de nacimiento debe ser una fecha válida'),
     body('estado').optional().isIn(['disponible', 'en ruta', 'dado de baja']).withMessage('El estado debe ser válido'),
-    body('created_by').notEmpty().withMessage('El campo created_by es requerido'),
-    body('updated_by').notEmpty().withMessage('El campo updated_by es requerido')
 ], async (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { nombre, apellido_paterno, apellido_materno, licencia, telefono, direccion, fecha_nacimiento, estado, created_by, updated_by } = req.body;
+    const { nombre, apellido_paterno, apellido_materno, licencia, telefono, direccion, fecha_nacimiento, estado } = req.body;
 
     try{
         const nuevoConductor = await Conductores.create({
@@ -33,9 +31,7 @@ router.post('/createConductor', [
             telefono,
             direccion,
             fecha_nacimiento,
-            estado,
-            created_by,
-            updated_by
+            estado
         });
         res.status(201).json(nuevoConductor);
 
@@ -76,7 +72,7 @@ router.get('/getConductor/:id', async (req, res) => {
 //editar un conductor
 router.put('/editConductor/:id', async (req, res) => {
     const { id } = req.params;
-    const { nombre, apellido_paterno, apellido_materno, licencia, telefono, direccion, fecha_nacimiento, estado, updated_by } = req.body;
+    const { nombre, apellido_paterno, apellido_materno, licencia, telefono, direccion, fecha_nacimiento, estado } = req.body;
 
     try{
         const conductor = await Conductores.findByPk(id);
@@ -92,7 +88,6 @@ router.put('/editConductor/:id', async (req, res) => {
         conductor.direccion = direccion;
         conductor.fecha_nacimiento = fecha_nacimiento;
         conductor.estado = estado;
-        conductor.updated_by = updated_by;
 
         await conductor.save();
         res.status(200).json(conductor);
