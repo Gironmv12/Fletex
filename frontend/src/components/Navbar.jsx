@@ -36,6 +36,8 @@ const Navbar = () => {
         return 'Vehículos y Conductores';
       case '/dashboard/estadopaquete':
         return 'Estado de Paquetes';
+      case '/dashboard/reportes':
+        return 'Reportes';
       default:
         return 'Dashboard';
     }

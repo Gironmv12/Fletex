@@ -11,6 +11,7 @@ import OptiRutas from './Pages/OptiRutas';
 import VehiculoConduc from './Pages/VehiculoConduc';
 import EstadoPaquete from './Pages/EstadoPaquete';
 import DashboardLayout from './components/DashboardLayout';
+import Reportes from './Pages/Reportes';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="optirutas" element={<OptiRutas />} />
           <Route path="vehiculoconductor" element={<VehiculoConduc />} />
           <Route path="estadopaquete" element={<EstadoPaquete />} />
+          <Route path="reportes" element={<Reportes />} />
         </Route>
       </Routes>
     </Router>

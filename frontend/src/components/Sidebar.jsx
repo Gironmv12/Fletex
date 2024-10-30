@@ -1,7 +1,7 @@
   import { useState } from 'react';
   import { Link, useLocation } from 'react-router-dom';
   import LogoFletex from '../../public/Svg/logoFletexAzul.svg';
-  import { LayoutGrid, UsersRound, UserRound, Warehouse, Package, Map, Sparkles, Truck, PackageCheck } from 'lucide-react';
+  import { LayoutGrid, UsersRound, UserRound, Warehouse, Package, Map, Sparkles, Truck, PackageCheck, ChartPie } from 'lucide-react';
   
   const Sidebar = () => {
     const location = useLocation();
@@ -78,6 +78,12 @@
             <Link to="/dashboard/estadopaquete" className={linkClasses('/dashboard/estadopaquete')} onClick={() => handleSelection('/dashboard/estadopaquete')}>
               <PackageCheck className={`w-5 h-5 mr-3 ${iconClasses('/dashboard/estadopaquete')}`} strokeWidth={1.5} />
               Estado de Paquetes
+            </Link>
+          </li>
+          <li className='mb-4'>
+            <Link to="/dashboard/reportes" className={linkClasses('/dashboard/reportes')} onClick={() => handleSelection('/dashboard/reportes')}>
+              <ChartPie className={`w-5 h-5 mr-3 ${iconClasses('/dashboard/reportes')}`} strokeWidth={1.5} />
+              Reportes
             </Link>
           </li>
         </ul>
