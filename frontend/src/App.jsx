@@ -12,6 +12,7 @@ import VehiculoConduc from './Pages/VehiculoConduc';
 import EstadoPaquete from './Pages/EstadoPaquete';
 import DashboardLayout from './components/DashboardLayout';
 import Reportes from './Pages/Reportes';
+import LandingRastreo from './Pages/client/landingRastreo';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="estadopaquete" element={<EstadoPaquete />} />
           <Route path="reportes" element={<Reportes />} />
         </Route>
+        <Route path="/rastreo" element={<LandingRastreo />} />
       </Routes>
     </Router>
   );
