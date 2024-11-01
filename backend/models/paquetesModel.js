@@ -121,6 +121,14 @@ Paquete.associate = (models) => {
         foreignKey: 'id_paquete',
         as: 'historiales'
     });
+    Paquete.belongsTo(models.DireccionCliente, {
+        foreignKey: 'direccion_remitente',
+        as: 'direccion_remitente'
+    });
+    Paquete.belongsTo(models.DireccionCliente, {
+        foreignKey: 'direccion_destino',
+        as: 'direccion_destino'
+    });
 };
 
 

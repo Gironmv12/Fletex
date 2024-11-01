@@ -8,8 +8,19 @@ import EstadoPaquete from '../models/estadoPaqueteModel.js';
 import Almacen from '../models/almacenesModel.js';
 import Usuario from '../models/usuarioModel.js';
 import HistorialEstadoPaquete from '../models/historialEstadoPaqueteModel.js'; 
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
 
+dotenv.config(); // Cargar variables de entorno
 const router = express.Router();
+//configuracion de nodemailer
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    },
+});
 
 // Crear paquete
 router.post('/createPaquete', [
@@ -86,6 +97,15 @@ router.post('/createPaquete', [
             id_inventario: inventario.id_inventario // Asignar el id_inventario creado
         }, { transaction });
 
+        //enviar correo electronico al cliente
+        const mailOptions = {
+            from: 'fletex34@gmail.com',
+            to: cliente.email,
+            subject: 'Código de Rastreo de su Paquete',
+            text: `Estimado cliente, su paquete ha sido creado exitosamente. Su código de rastreo es: ${codigo_rastreo}`
+        };
+
+        await transporter.sendMail(mailOptions);
         await transaction.commit(); // Confirmar la transacción
 
         res.status(201).json({ paquete, inventario });

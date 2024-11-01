@@ -10,6 +10,8 @@ import conductoresRoutes from './routes/conductoresRoutes.js';
 import rutasAsignacionesRoutes from './routes/rutasAsignacionesRoutes.js';
 import historialPaqueteRoutes from './routes/historialPaqueteRoutes.js';
 import dashboardRoutes from './routes/dashboardRoutes.js';
+import reportesRoutes from './routes/reportesRoutes.js';
+import routerRastreo from './routes/rastreoRoutes.js';
 
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -54,6 +56,10 @@ app.use('/api', rutasAsignacionesRoutes);
 app.use('/api', historialPaqueteRoutes);
 //usar las rutas para dashboard
 app.use('/api', dashboardRoutes);
+//usar las rutas para reportes
+app.use('/api', reportesRoutes);
+//usar las rutas para rastreo de paquetes
+app.use('/api', routerRastreo);
 
 // Conectar a la base de datos y sincronizar
 connectDB()

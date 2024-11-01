@@ -7,6 +7,7 @@ import AsignacionPaquete from '../models/asignacionesPaquetesModel.js';
 import Paquete from '../models/paquetesModel.js';
 import { Sequelize } from 'sequelize';
 import { sequelize } from '../config/db.js';
+import HistorialEstadoPaquete from '../models/historialEstadoPaqueteModel.js';
 
 const router = express.Router();
 
@@ -91,6 +92,21 @@ router.put('/completarAsignacion/:id', [
 
         asignacion.fecha_completada = fecha_completada;
         await asignacion.save();
+
+        const paquete = await Paquete.findByPk(asignacion.id_paquete);
+        if (paquete) {
+            const estadoAnterior = paquete.estado;
+            paquete.estado = 'entregado';
+            paquete.fecha_completada = fecha_completada;
+            await paquete.save();
+
+            await HistorialEstadoPaquete.create({
+                id_paquete: paquete.id_paquete,
+                estado_anterior: estadoAnterior,
+                estado_nuevo: 'entregado',
+                fecha_cambio: new Date()
+            });
+        }
 
         res.status(200).json(asignacion);
     } catch (error) {
