@@ -252,4 +252,28 @@ router.get('/getEstadosPaquete', async (req, res) => {
     }
 });
 
+// actualizar el estado de un paquete
+router.put('/actualizarEstado/:id', async (req, res) => {
+    const { id } = req.params;
+    const { nuevoEstado } = req.body;
+
+    try {
+        const paquete = await Paquete.findByPk(id);
+
+        if (!paquete) {
+            return res.status(404).json({ mensaje: 'Paquete no encontrado' });
+        }
+
+        // Actualizar el campo correcto
+        paquete.id_estado = nuevoEstado;
+        await paquete.save();
+
+        res.status(200).json({ mensaje: 'Estado del paquete actualizado', paquete });
+    } catch (error) {
+        res.status(500).json({ mensaje: 'Error al actualizar el estado del paquete', error });
+    }
+});
+
+
+
 export default router;

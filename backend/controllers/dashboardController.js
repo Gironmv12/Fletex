@@ -1,6 +1,7 @@
 import express from 'express';
 import Paquete from '../models/paquetesModel.js';
 import Ruta from '../models/rutasModel.js';
+import Vehiculo from '../models/vehiculosModel.js';
 import Almacen from '../models/almacenesModel.js';
 import { sequelize } from '../config/db.js';
 
@@ -18,7 +19,7 @@ router.get('/totalPaquetes', async (req, res) => {
 
 router.get('/rutasActivas', async (req, res) => {
     try {
-        const rutasActivas = await Ruta.count({
+        const rutasActivas = await Vehiculo.count({
             where: {
                 estado: 'en uso'
             }

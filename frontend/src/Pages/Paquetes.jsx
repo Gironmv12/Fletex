@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { Save, CircleX, FilePen, Trash2, Eye } from 'lucide-react';
+import { Save, CircleX, FilePen, Eye } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { motion } from "framer-motion";
 
@@ -28,6 +28,35 @@ const Paquetes = () => {
   const [editingPaqueteId, setEditingPaqueteId] = useState(null);
   const [selectedPaquete, setSelectedPaquete] = useState(null); // Estado para almacenar el paquete seleccionado
   const modalRef = useRef();
+
+  const handleChangeEstado = async (idPaquete, nuevoEstado) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/paquete/actualizarEstado/${idPaquete}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nuevoEstado }),
+      });
+  
+      if (response.ok) {
+        // Actualizar el paquete en el estado local
+        setPaquetes((prevPaquetes) =>
+          prevPaquetes.map((paquete) =>
+            paquete.id_paquete === idPaquete ? { ...paquete, id_estado: parseInt(nuevoEstado) } : paquete
+          )
+        );
+        alert('Estado del paquete actualizado exitosamente');
+      } else {
+        const errorData = await response.json();
+        console.error('Error al actualizar el estado:', errorData);
+        alert('Error al actualizar el estado del paquete');
+      }
+    } catch (error) {
+      console.error('Error al actualizar el estado:', error);
+      alert('Error al actualizar el estado del paquete');
+    }
+  };
 
   useEffect(() => {
     const fetchClientes = async () => {
@@ -413,6 +442,7 @@ const Paquetes = () => {
                 <th className="py-3 px-6 text-left font-semibold text-sm border-b border-gray-200">Cliente</th>
                 <th className="py-3 px-6 text-left font-semibold text-sm border-b border-gray-200">Destino</th>
                 <th className="py-3 px-6 text-left font-semibold text-sm border-b border-gray-200">Estado</th>
+                <th className="py-3 px-6 text-left font-semibold text-sm border-b border-gray-200">Cambiar estado</th>
                 <th className="py-3 px-6 text-left font-semibold text-sm border-b border-gray-200">Acciones</th>
               </tr>
             </thead>
@@ -428,6 +458,20 @@ const Paquetes = () => {
                     {estados.find((estado) => estado.id_estado === paquete.id_estado)?.estado}
                   </td>
                   <td className="py-3 px-6 border-b border-gray-200 text-gray-800 text-xs">
+                    <select
+                      value={paquete.id_estado}
+                      onChange={(e) => handleChangeEstado(paquete.id_paquete, e.target.value)}
+                      className="border border-gray-300 rounded-md p-1"
+                    >
+                      {estados.map((estado) => (
+                        <option key={estado.id_estado} value={estado.id_estado}>
+                          {estado.estado}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+
+                  <td className="py-3 px-6 border-b border-gray-200 text-gray-800 text-xs">
                     <button
                       className="text-[#000000] hover:text-blue-800 px-4 "
                       onClick={() => handleViewDetails(paquete)}
@@ -437,14 +481,9 @@ const Paquetes = () => {
                     <button
                       disabled={true} // Desactivado por defecto
                       className="text-[#000000] cursor-not-allowed opacity-50 px-4"
+                      
                     >
                       <FilePen className="w-5 h-5" />
-                    </button>
-                    <button
-                      disabled={true} // Desactivado por defecto
-                      className="text-red-600 cursor-not-allowed opacity-50"
-                    >
-                      <Trash2 className="w-5 h-5" />
                     </button>
                   </td>
                 </tr>

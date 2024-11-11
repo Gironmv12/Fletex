@@ -3,6 +3,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { Truck, Clock, Check } from 'lucide-react';
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+
+// Registrar componentes de Chart.js
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Paquetes = () => {
   const [stats, setStats] = useState([]);
@@ -58,6 +63,20 @@ const Paquetes = () => {
 
     obtenerDatos();
   }, []);
+
+  const labels = stats.map((item) => item.estado);
+  const cantidades = stats.map((item) => item.cantidad);
+
+  const dataChart = {
+    labels,
+    datasets: [
+      {
+        label: 'Paquetes por Estado',
+        data: cantidades,
+        backgroundColor: stats.map((item) => item.color),
+      },
+    ],
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg mt-4">
@@ -127,6 +146,12 @@ const Paquetes = () => {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      <div className="mt-12 flex justify-center">
+        <div className='w-full max-w-lg'>
+          <Bar data={dataChart} options={{ responsive: true }} />
         </div>
       </div>
     </div>

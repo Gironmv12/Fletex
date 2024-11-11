@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Package } from 'lucide-react';
+import { Pie } from 'react-chartjs-2';
+import { Chart, ArcElement } from 'chart.js';
+
+Chart.register(ArcElement);
 
 const ReportInventario = () => {
   const [inventario, setInventario] = useState([]);
@@ -34,6 +38,28 @@ const ReportInventario = () => {
 
     obtenerDatos();
   }, []);
+
+  // Datos para el gráfico
+  const labels = Array.from(uniqueWarehouses).map((id) => {
+    const warehouseItems = inventario.filter(item => item.id_almacen === id);
+    return warehouseItems[0].nombre_almacen;
+  });
+
+  const cantidades = Array.from(uniqueWarehouses).map((id) => {
+    const warehouseItems = inventario.filter(item => item.id_almacen === id);
+    return warehouseItems.reduce((acc, item) => acc + item.cantidad, 0);
+  });
+
+  const dataChart = {
+    labels,
+    datasets: [
+      {
+        label: 'Artículos por Almacén',
+        data: cantidades,
+        backgroundColor: ['#4F46E5', '#10B981', '#F59E0B', '#EF4444', '#3B82F6'],
+      },
+    ],
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 mt-4 rounded-lg">
@@ -98,6 +124,19 @@ const ReportInventario = () => {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      <div className="mt-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Grafico</h1>
+          <p className="text-gray-600">Cantidad de almacenes</p>
+        </div>
+
+        <div className='flex justify-center'>
+        <div className="w-full max-w-md ">
+          <Pie data={dataChart} options={{ responsive: true }} />
+        </div>
         </div>
       </div>
     </div>

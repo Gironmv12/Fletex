@@ -190,7 +190,7 @@ const LandingRastreo = () => {
                       <Scale className="w-5 h-5 text-gray-400" />
                       <div className="text-sm">
                         <div className="text-gray-500">Peso</div>
-                        <div className="font-medium text-gray-900">{paquete.peso}</div>
+                        <div className="font-medium text-gray-900">{paquete.peso} KG </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
@@ -205,7 +205,7 @@ const LandingRastreo = () => {
                       <div className="text-sm">
                         <div className="text-gray-500">Método de pago</div>
                         <div className="font-medium text-gray-900">
-                          {paquete.metodo_pago} - {paquete.costo}
+                          {paquete.metodo_pago} - {paquete.costo} 
                         </div>
                       </div>
                     </div>
